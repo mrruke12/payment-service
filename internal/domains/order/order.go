@@ -17,6 +17,6 @@ func NewOrder(userID uuid.UUID) *Order {
 	return &Order{
 		ID:     uuid.NewV7(),
 		UserID: userID,
-		Status: StatusPending,
+		Status: StatusPendingPayment,
 	}
 }

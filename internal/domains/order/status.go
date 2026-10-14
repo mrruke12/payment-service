@@ -3,10 +3,8 @@ package order
 type Status string
 
 const (
-	StatusPending   Status = "pending"
-	StatusReserved  Status = "reserved"
-	StatusPaid      Status = "paid"
-	StatusCancelled Status = "cancelled"
-	StatusFailed    Status = "failed"
-	StatusRefunded  Status = "refunded"
+	StatusPendingPayment Status = "pending_payment" // created but not paid yet
+	StatusPaid           Status = "paid"            // successfully paid
+	StatusCancelled      Status = "cancelled"       // cancelled before payment
+	StatusRefunded       Status = "refunded"        // cancelled after payment
 )

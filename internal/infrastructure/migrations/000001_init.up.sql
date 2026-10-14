@@ -1,6 +1,11 @@
 begin;
 
-create type order_status as enum ('pending', 'reserved', 'paid', 'cancelled', 'failed', 'refunded');
+create type order_status as enum (
+    'pending_payment',
+    'paid',
+    'cancelled',
+    'refunded',
+);
 create type reservation_status as enum('active', 'expired', 'cancelled', 'confirmed');
 create type payment_status as enum('pending', 'completed', 'failed', 'refunded');
 
