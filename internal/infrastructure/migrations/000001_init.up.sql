@@ -1,6 +1,6 @@
 begin;
 
-create type order_status as enum ('reserved', 'paid', 'cancelled', 'failed', 'refunded');
+create type order_status as enum ('pending', 'reserved', 'paid', 'cancelled', 'failed', 'refunded');
 create type reservation_status as enum('active', 'expired', 'cancelled', 'confirmed');
 create type payment_status as enum('pending', 'completed', 'failed', 'refunded');
 
@@ -32,18 +32,13 @@ create table order_items (
     constraint order_items_order_product_uq unique (order_id, product_id)
 );
 
-create table order_reservations (
+create table reservations (
     id uuid primary key,
     order_id uuid not null unique references orders(id),
     status reservation_status not null,
+    expires_at timestamptz not null default now() + interval '5 minutes',
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now()
-);
-
-create table item_reservations (
-    id uuid primary key, 
-    item_id uuid unique not null references order_items(id),
-    order_reservation_id uuid unique not null references order_reservations(id)
 );
 
 create table payments (

@@ -34,6 +34,8 @@ func Connect(ctx context.Context, cfg config.DBConfig) *pgxpool.Pool {
 		panic(err)
 	}
 
+	connConfig.MaxConns = 10
+
 	pool, err := pgxpool.NewWithConfig(
 		_ctx,
 		connConfig,

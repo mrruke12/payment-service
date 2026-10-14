@@ -1,4 +1,4 @@
-package erraggregation
+package aggregation
 
 import (
 	"errors"
@@ -17,7 +17,7 @@ import (
 //
 //	err := Join("failed to load", ErrNotFound, "for user", userID)
 //	// => "failed to load: not found: for user 42"
-func Join(args ...any) error {
+func JoinError(args ...any) error {
 	var acc error
 
 	for _, arg := range args {
