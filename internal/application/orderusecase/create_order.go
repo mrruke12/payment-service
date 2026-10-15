@@ -9,17 +9,7 @@ import (
 	"github.com/mrruke12/payment-service/pkg/aggregation"
 )
 
-type CreateOrderService struct {
-	uow UnitOfWork
-}
-
-func NewCreateOrderService(uow UnitOfWork) *CreateOrderService {
-	return &CreateOrderService{
-		uow: uow,
-	}
-}
-
-func (s *CreateOrderService) CreateOrder(ctx context.Context, userID uuid.UUID, items []order.Item) (*order.Order, error) {
+func (s *Service) CreateOrder(ctx context.Context, userID uuid.UUID, items []order.Item) (*order.Order, error) {
 	o := order.NewOrder(userID) // create an order
 
 	oItems := order.ItemsToOrderItems(o.ID, items)                                                 // convert object-ish items to persistence order items
