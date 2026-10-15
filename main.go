@@ -33,20 +33,21 @@ func main() {
 
 	s := orderusecase.NewCreateOrderService(uow)
 
-	// items := []order.Item{
-	// 	{
-	// 		ProductID: uuid.MustParse("01a130d5-8ca9-7746-8b2f-e1065aad6c01"),
-	// 		Quantity:  1,
-	// 	},
-	// }
+	items := []order.Item{
+		{
+			ProductID: uuid.MustParse("01a130d5-8ca9-7746-8b2f-e1065aad6c01"),
+			Quantity:  1,
+		},
+	}
+	var userID = uuid.MustParse("01a130d5-8ca9-7746-8b2f-e1065aad6c0c")
 
-	// o, err := s.CreateOrder(context.Background(), userID, items)
+	o, err := s.CreateOrder(context.Background(), userID, items)
 
-	// if err != nil {
-	// 	panic(err)
-	// }
+	if err != nil {
+		panic(err)
+	}
 
-	// fmt.Println(o)
+	fmt.Println(o)
 
 	var wg sync.WaitGroup
 	for i := 0; i < 10; i++ {
@@ -107,7 +108,7 @@ func seed(db postgres.Querier) {
 
 	ins = builder.Insert("products").Columns("id", "name", "quantity", "price")
 	for i, id := range productIDs {
-		ins = ins.Values(id, fmt.Sprintf("product %d", i+1), 100, 1000)
+		ins = ins.Values(id, fmt.Sprintf("product %d", i+1), 10_000, 1000)
 	}
 	sql, args, err = ins.ToSql()
 	if err != nil {

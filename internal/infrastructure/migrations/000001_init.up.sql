@@ -4,8 +4,9 @@ create type order_status as enum (
     'pending_payment',
     'paid',
     'cancelled',
-    'refunded',
+    'refunded'
 );
+
 create type reservation_status as enum('active', 'expired', 'cancelled', 'confirmed');
 create type payment_status as enum('pending', 'completed', 'failed', 'refunded');
 
@@ -41,7 +42,7 @@ create table reservations (
     id uuid primary key,
     order_id uuid not null unique references orders(id),
     status reservation_status not null,
-    expires_at timestamptz not null default now() + interval '5 minutes',
+    expires_at timestamptz not null default now() - interval '5 minutes',
     created_at timestamptz not null default now(),
     updated_at timestamptz not null default now()
 );
